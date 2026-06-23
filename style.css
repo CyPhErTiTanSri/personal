@@ -1,7 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
+
+/* ===========================
+   GLOBAL RESET
+=========================== */
 
 * {
   margin: 0;
@@ -11,23 +15,35 @@
 }
 
 
-/* ================= LOADING PAGE ================= */
+/* ===========================
+   FIFA LOADING SCREEN
+=========================== */
 
-.loader {
+.loading-screen {
   position: fixed;
   inset: 0;
   min-height: 100vh;
+
   background-color: #ececec;
   background-image:
-  repeating-linear-gradient(45deg, #fffa 0 1px, transparent 1px 30px),
-  repeating-linear-gradient(-45deg, #fffa 0 1px, transparent 1px 30px);
+  repeating-linear-gradient(
+    45deg,
+    #fffa 0 1px,
+    transparent 1px 30px
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    #fffa 0 1px,
+    transparent 1px 30px
+  );
 
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 9999;
 
-  animation: hideLoader 1s ease 4s forwards;
+  animation: hideLoader 3.5s forwards;
 }
 
 
@@ -35,28 +51,39 @@
   display: flex;
   align-items: flex-end;
   gap: 8px;
+
   font-size: 100px;
   font-weight: 900;
+
+  line-height: 1cap;
+  color: #222;
 }
 
 
 .letter {
   display: inline-block;
-  animation: letter-bounce 0.35s ease infinite alternate;
+  animation: letter-bounce .35s ease infinite alternate;
+  transform-origin: bottom center;
 }
+
 
 
 @keyframes letter-bounce {
 
   0% {
-    transform: scaleX(1.2) scaleY(0.75);
+    transform:
+    scaleX(1.2)
+    scaleY(.75);
   }
 
   45% {
-    transform: scaleX(1) scaleY(1);
+    transform:
+    scaleX(1)
+    scaleY(1);
   }
 
 }
+
 
 
 .soccer-wrapper {
@@ -64,306 +91,591 @@
 }
 
 
+
 .soccer {
 
   position: absolute;
-  bottom: 100%;
-  left: 50%;
 
-  translate: -50% 0;
+  bottom:100%;
+  left:50%;
+
+  translate:-50% 0;
 
   --size:50px;
 
-  width: var(--size);
-  height: var(--size);
+  width:var(--size);
+  height:var(--size);
 
-  font-size: calc(var(--size)*0.8);
+  font-size:
+  calc(var(--size)*.8);
+
 
   margin-bottom:25px;
 
+
   animation:
   rotate 4s linear infinite,
-  bounce 0.35s ease infinite alternate;
+  bounce .35s ease infinite alternate;
+
 
   display:flex;
   justify-content:center;
   align-items:center;
 
   font-family:"Noto Emoji",sans-serif;
-}
-
-
-@keyframes rotate {
-
- from{
-  rotate:0deg;
- }
-
- to{
-  rotate:360deg;
- }
 
 }
+
 
 
 @keyframes bounce {
 
- from{
+from {
   translate:-50% 100%;
- }
+}
 
- to{
+
+to {
   translate:-50% 0;
- }
+}
 
 }
+
+
+
+@keyframes rotate {
+
+from {
+ rotate:0deg;
+}
+
+to {
+ rotate:360deg;
+}
+
+}
+
 
 
 @keyframes hideLoader {
 
- to{
-  opacity:0;
-  visibility:hidden;
- }
+0% {
+opacity:1;
+visibility:visible;
+}
+
+
+85% {
+opacity:1;
+}
+
+
+100% {
+
+opacity:0;
+visibility:hidden;
+
+}
 
 }
 
 
-/* ================= LOGIN PAGE ================= */
+
+
+
+/* ===========================
+      LOGIN PAGE
+=========================== */
+
+
+:root {
+
+  --primary-color:#c6c3c3;
+  --second-color:#ffffff;
+  --black-color:#000000;
+
+}
+
 
 
 body {
 
-  min-height:100vh;
+min-height:100vh;
 
-  background-image:
-  url("https://codingstella.com/wp-content/uploads/2024/01/download-6-scaled.jpeg");
+background-image:
+url("https://codingstella.com/wp-content/uploads/2024/01/download-6-scaled.jpeg");
 
-  background-position:center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+background-position:center;
+background-size:cover;
+background-repeat:no-repeat;
+background-attachment:fixed;
+
 
 }
+
 
 
 a {
- text-decoration:none;
- color:white;
+
+text-decoration:none;
+color:var(--second-color);
+
 }
+
+
+a:hover {
+
+text-decoration:underline;
+
+}
+
 
 
 .wrapper {
 
- width:100%;
- min-height:100vh;
 
- display:flex;
- justify-content:center;
- align-items:center;
+width:100%;
 
- background:rgba(0,0,0,0.2);
+display:flex;
 
-}
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
 
 
-.login_box {
+background:
+rgba(0,0,0,.2);
 
- position:relative;
 
- width:450px;
 
- backdrop-filter:blur(25px);
+/* hide login until loader ends */
 
- border:2px solid #c6c3c3;
+opacity:0;
 
- border-radius:15px;
+animation:showLogin 1s forwards;
 
- padding:7.5em 2.5em 4em;
+animation-delay:3.5s;
 
- color:white;
-
- box-shadow:
- 0 0 10px 2px rgba(0,0,0,.2);
-
- animation:showLogin 1s ease 4s both;
 
 }
+
+
 
 
 @keyframes showLogin {
 
- from{
- opacity:0;
- transform:scale(.8);
- }
 
- to{
- opacity:1;
- transform:scale(1);
- }
+from {
+
+opacity:0;
 
 }
+
+
+to {
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+
+.login_box {
+
+
+position:relative;
+
+width:450px;
+
+
+backdrop-filter:blur(25px);
+
+
+border:
+2px solid var(--primary-color);
+
+
+border-radius:15px;
+
+
+padding:
+7.5em
+2.5em
+4em
+2.5em;
+
+
+color:var(--second-color);
+
+
+box-shadow:
+0 0 10px
+2px rgba(0,0,0,.2);
+
+
+}
+
+
+
 
 
 .login-header {
 
- position:absolute;
 
- top:0;
- left:50%;
+position:absolute;
 
- transform:translateX(-50%);
+top:0;
+left:50%;
 
- width:140px;
- height:70px;
 
- display:flex;
- justify-content:center;
- align-items:center;
+transform:
+translateX(-50%);
 
- background:#c6c3c3;
 
- border-radius:0 0 20px 20px;
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+
+background:
+var(--primary-color);
+
+
+width:140px;
+
+height:70px;
+
+
+border-radius:
+0 0 20px 20px;
+
 
 }
+
+
 
 
 .login-header span {
 
- font-size:30px;
- color:black;
+
+font-size:30px;
+
+color:var(--black-color);
+
 
 }
+
+
+
+
+
+.login-header::before {
+
+
+content:"";
+
+position:absolute;
+
+
+top:0;
+left:-30px;
+
+
+width:30px;
+height:30px;
+
+
+border-top-right-radius:50%;
+
+
+background:transparent;
+
+
+box-shadow:
+15px 0 0 var(--primary-color);
+
+
+}
+
+
+
+
+
+.login-header::after {
+
+
+content:"";
+
+position:absolute;
+
+
+top:0;
+right:-30px;
+
+
+width:30px;
+height:30px;
+
+
+border-top-left-radius:50%;
+
+
+background:transparent;
+
+
+box-shadow:
+-15px 0 0 var(--primary-color);
+
+
+}
+
+
 
 
 .input_box {
 
- position:relative;
 
- display:flex;
- flex-direction:column;
+position:relative;
 
- margin:20px 0;
+
+display:flex;
+
+flex-direction:column;
+
+
+margin:20px 0;
+
 
 }
+
+
 
 
 .input-field {
 
- width:100%;
- height:55px;
 
- background:transparent;
+width:100%;
 
- border:2px solid #c6c3c3;
+height:55px;
 
- border-radius:30px;
 
- padding:0 50px 0 20px;
+font-size:16px;
 
- color:white;
 
- outline:none;
+background:transparent;
+
+
+color:var(--second-color);
+
+
+padding-inline:
+20px 50px;
+
+
+border:
+2px solid var(--primary-color);
+
+
+border-radius:30px;
+
+
+outline:none;
+
 
 }
+
 
 
 .label {
 
- position:absolute;
 
- top:15px;
- left:20px;
+position:absolute;
 
- transition:.2s;
+
+top:15px;
+
+left:20px;
+
+
+transition:.2s;
+
 
 }
+
+
 
 
 .input-field:focus ~ .label,
 .input-field:valid ~ .label {
 
 
- top:-10px;
+top:-10px;
 
- font-size:14px;
 
- background:#c6c3c3;
+font-size:14px;
 
- color:black;
 
- padding:0 10px;
+background:
+var(--primary-color);
 
- border-radius:20px;
+
+border-radius:30px;
+
+
+color:
+var(--black-color);
+
+
+padding:
+0 10px;
+
 
 }
+
+
+
 
 
 .icon {
 
- position:absolute;
 
- right:25px;
- top:18px;
+position:absolute;
+
+
+top:18px;
+
+right:25px;
+
+
+font-size:20px;
+
 
 }
+
+
 
 
 .remember-forgot {
 
- display:flex;
- justify-content:space-between;
+
+display:flex;
+
+
+justify-content:space-between;
+
+
+font-size:15px;
+
 
 }
+
+
 
 
 .input-submit {
 
- width:100%;
- height:50px;
 
- border:none;
+width:100%;
 
- border-radius:30px;
 
- cursor:pointer;
+height:50px;
 
- transition:.3s;
+
+background:#ececec;
+
+
+font-size:16px;
+
+
+font-weight:500;
+
+
+border:none;
+
+
+border-radius:30px;
+
+
+cursor:pointer;
+
+
+transition:.3s;
+
 
 }
+
+
 
 
 .input-submit:hover {
 
- background:white;
+
+background:
+var(--second-color);
+
 
 }
+
+
+
 
 
 .register {
 
- text-align:center;
 
- margin-top:20px;
+text-align:center;
 
 }
 
 
 
-@media(max-width:564px){
 
- .login_box{
+.register a {
 
- padding:7.5em 1.5em 4em;
+font-weight:500;
 
- }
+}
 
 
- .title{
 
- font-size:60px;
 
- }
+
+@media only screen and (max-width:564px){
+
+
+.wrapper{
+
+padding:20px;
+
+}
+
+
+
+.login_box{
+
+padding:
+7.5em
+1.5em
+4em
+1.5em;
+
+}
+
+
+.title{
+
+font-size:60px;
+
+}
+
 
 }
